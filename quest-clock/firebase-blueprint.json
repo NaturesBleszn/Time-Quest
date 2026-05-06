@@ -1,0 +1,25 @@
+{
+  "entities": {
+    "UserDoc": {
+      "title": "User Document",
+      "description": "All synchronized user data.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "stats": { "type": "object" },
+        "achievements": { "type": "array" },
+        "quests": { "type": "array" },
+        "presets": { "type": "array" },
+        "blockedSites": { "type": "array" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["userId", "stats"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserDoc" },
+      "description": "Contains everything for the user"
+    }
+  }
+}

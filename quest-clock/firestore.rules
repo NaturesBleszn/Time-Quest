@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isAuthenticated() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    function isValidUserDoc(data) {
+      return data.keys().hasAll(['userId', 'stats'])
+        && data.userId == request.auth.uid
+        && data.stats is map;
+    }
+
+    match /users/{userId} {
+      allow get: if isAuthenticated() && request.auth.uid == userId;
+      // Client does not use `list` queries, only `get` by userId
+      allow create: if isAuthenticated() 
+                    && request.auth.uid == userId
+                    && isValidId(userId)
+                    && isValidUserDoc(request.resource.data);
+      allow update: if isAuthenticated()
+                    && request.auth.uid == userId
+                    && request.resource.data.userId == request.auth.uid
+                    && isValidUserDoc(request.resource.data)
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stats', 'achievements', 'quests', 'presets', 'blockedSites', 'updatedAt']);
+    }
+  }
+}

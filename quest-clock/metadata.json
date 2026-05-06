@@ -1,0 +1,6 @@
+{
+  "name": "Quest Clock",
+  "description": "An ADHD-friendly gamified timer for task management, featuring custom timers, focus modes, XP, achievements, and soundscapes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

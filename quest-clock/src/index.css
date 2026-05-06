@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-quest-bg: #0A0B1E;
+  --color-quest-card: rgb(255 255 255 / 0.05); /* To be used with backdrop-blur */
+  --color-quest-accent: #6366f1; /* indigo-500 */
+  --color-quest-success: #22c55e; /* green-500 */
+  --color-quest-danger: #ef4444; /* red-500 */
+  --color-quest-text: #ffffff;
+  --color-quest-muted: rgb(255 255 255 / 0.7);
+  --font-game: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+  background-color: var(--color-quest-bg);
+  color: var(--color-quest-text);
+  font-family: var(--font-game);
+  -webkit-font-smoothing: antialiased;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-quest-muted);
+  border-radius: 10px;
+  opacity: 0.5;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-quest-accent);
+}
+
